@@ -19,20 +19,25 @@
           </tr>
         </thead>
         <tbody>
-        @foreach ($data as $obat)
+        {{-- @foreach ($data as $obat) --}}
           <tr>
-            <th scope="row">{{ $loop->iteration }}</th>
-            <td>{{ $obat['nama_obat'] }}</td>
+            <th scope="row">1</th>
+            {{-- <td>{{ $obat['nama_obat'] }}</td>
             <td>{{ $obat['obatDataKategori'][0]['nama_kategori'] }}</td>
             <td>{{ $obat['obatDataSupplier'][0]['nama_supplier'] }}</td>
             <td>{{ $obat['stok'] }}</td>
-            <td>{{ $obat['harga'] }}</td>
+            <td>{{ $obat['harga'] }}</td> --}}
+            <td>Amoxilin</td>
+            <td>Tablet</td>
+            <td>Kimia Farma</td>
+            <td>10</td>
+            <td>25000</td>
             <td>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3"></i>Hapus</button>
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-pencil-square"></i>Ubah</button>
             </td>
           </tr>    
-        @endforeach
+        {{-- @endforeach --}}
         </tbody>
     </table>
 
@@ -41,12 +46,44 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Transaksi</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Obat</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            ...
-            </div>
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Nama Obat:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="recipient-name" class="col-form-label">Kategori:</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="recipient-name" class="col-form-label">Supplier:</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="recipient-name" class="col-form-label">Stok:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="recipient-name" class="col-form-label">Harga:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    
+                </form>
+                </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
             <button type="button" class="btn btn-primary">Simpan</button>
@@ -60,11 +97,40 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Ubah Transaksi</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Ubah Data Obat</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            ...
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Nama Obat:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="form-group mt-2">
+                    <label for="recipient-name" class="col-form-label">Kategori:</label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="recipient-name" class="col-form-label">Supplier:</label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="recipient-name" class="col-form-label">Stok:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="form-group mt-2">
+                    <label for="recipient-name" class="col-form-label">Harga:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                </div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>

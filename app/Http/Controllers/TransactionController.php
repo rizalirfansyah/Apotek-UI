@@ -13,22 +13,24 @@ class TransactionController extends Controller
     public function index()
     {
         //
-        $accessToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmaXFyaSIsImlhdCI6MTY5MDQzMzM2NywiZXhwIjoxNjkwNDM0ODA3fQ.RB7xPAQWTpy4-ELdNBO-k-q21z9R7UZ7stlxWsg9986CLliDXKRV20oEfaBNCt4hLIQ5kZbnj3GzyJLAqiK24Q";
+        // $accessToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmaXFyaSIsImlhdCI6MTY5MDQzMzM2NywiZXhwIjoxNjkwNDM0ODA3fQ.RB7xPAQWTpy4-ELdNBO-k-q21z9R7UZ7stlxWsg9986CLliDXKRV20oEfaBNCt4hLIQ5kZbnj3GzyJLAqiK24Q";
 
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://desktop-sjoemcq:3001/transactions/all');
+        // $response = Http::withHeaders([
+        //     'Authorization' => 'Bearer ' . $accessToken,
+        // ])->get('http://Rizal:3001/transactions/all');
 
-        if ($response->ok()) {
-            $data = $response->json();
+        // if ($response->ok()) {
+        //     $data = $response->json();
 
-            // dd($data);
+        //     dd($data);
 
-            return view('transaction',compact('data'));
+        //     return view('transaction',compact('data'));
         
-        } else {
+        // } else {
 
-        }
+        // }
+
+        return view('transaction');
     }
 
     /**

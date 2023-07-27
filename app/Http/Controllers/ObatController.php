@@ -13,22 +13,23 @@ class ObatController extends Controller
     public function index()
     {
          //
-         $accessToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5MDQ2MjMzNywiZXhwIjoxNjkwNDYzNzc3fQ.m_gFwp6FsChYk-yUrJhM3_v2pxK0w4bzft3gjYQ5vLsGZyKKnog-LjZOY0bWPtZfFvGMqh0F-mmYFRV7ReN93Q";
+        //  $accessToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5MDQ2NjI0OSwiZXhwIjoxNjkwNDY3Njg5fQ.rhhls3MfzUfroBdUT-3lEtZfVYMHNf5RdTDgRTBrEHtIIgf6KxdRaETq4daPqPj8xktlz1jHsNOOR-r3XFhrgg";
 
-         $response = Http::withHeaders([
-             'Authorization' => 'Bearer ' . $accessToken,
-         ])->get('http://Rizal:3002/obat/list');
+        //  $response = Http::withHeaders([
+        //      'Authorization' => 'Bearer ' . $accessToken,
+        //  ])->get('http://Rizal:3002/obat/list');
  
-         if ($response->ok()) {
-             $data = $response->json();
+        //  if ($response->ok()) {
+        //      $data = $response->json();
  
-            //  dd($data);
+        //      dd($data);
  
-             return view('medicine',compact('data'));
+        //      return view('medicine',compact('data'));
          
-         } else {
+        //  } else {
  
-         }
+        //  }
+        return view('medicine');
     }
 
     /**
