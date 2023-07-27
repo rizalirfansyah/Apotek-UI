@@ -14,7 +14,7 @@
                     <i class="fs-4 bi-cart3"></i> <span class="ms-1 d-none d-sm-inline">Transaksi</span></a>
             </li>
             <li>
-                <a href="#" class="nav-link px-0 align-middle">
+                <a href="{{ route('medicine.index') }}" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-capsule"></i> <span class="ms-1 d-none d-sm-inline">Obat</span> </a>
             </li>
             <li>

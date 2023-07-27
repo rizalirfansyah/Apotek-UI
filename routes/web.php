@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ObatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,4 @@ Route::get('/', function () {
 })->name('dashboard');
 
 Route::resource('transaction', TransactionController::class);
+Route::resource('medicine', ObatController::class);
