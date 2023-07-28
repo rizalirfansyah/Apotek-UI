@@ -2,7 +2,12 @@
 
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ObatController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +26,73 @@ Route::get('/', function () {
 
 Route::resource('transaction', TransactionController::class);
 Route::resource('medicine', ObatController::class);
+Route::resource('category', CategoryController::class);
+Route::resource('supplier', SupplierController::class);
+Route::resource('user', UserController::class);
+
+Route::get('/login_admin', function (Request $request) {
+    $response = Http::post('http://desktop-sjoemcq:3003/user/login', [
+        'username' => 'admin',
+        'password' => 'admin123',
+    ]);
+
+    if ($response->successful()) {
+        $data = $response->json();
+
+        $request->session()->put('token', $data['token']);
+
+        return redirect()->route('dashboard')
+            ->with('success', 'Login berhasil');
+    } else {
+        return redirect()->route('dashboard')
+            ->with('error', 'Akun tidak terdaftar');
+    }
+})->name('login_admin');
+
+Route::get('/login_cashier', function (Request $request) {
+    $response = Http::post('http://desktop-sjoemcq:3003/user/login', [
+        'username' => 'cashier',
+        'password' => 'cashier123',
+    ]);
+
+    if ($response->successful()) {
+        
+        $data = $response->json();
+
+        $request->session()->put('token', $data['token']);
+
+        return redirect()->route('dashboard')
+            ->with('success', 'Login berhasil');
+    } else {
+        return redirect()->route('dashboard')
+            ->with('error', 'Akun tidak terdaftar');
+    }
+})->name('login_cashier');
+
+Route::get('/register', function () {
+    $response = Http::post('http://desktop-sjoemcq:3003/user/register', [
+        'nik' => '1201190034',
+        'username' => 'cashier',
+        'password' => 'cashier123',
+    ]);
+
+    if ($response->successful()) {
+        return redirect()->route('dashboard')
+            ->with('success', 'Akun berhasil terdaftar');
+    } else {
+        return redirect()->route('dashboard')
+            ->with('error', 'Akun tidak terdaftar');
+    }
+})->name('register');
+
+Route::get('/logout', function (Request $request) {
+
+    $data['token'] = "null";
+
+    $request->session()->put('token', $data['token']);
+
+    return redirect()->route('dashboard')
+            ->with('success', 'Logout berhasil');
+})->name('logout');
+
+
