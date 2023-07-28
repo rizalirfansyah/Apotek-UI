@@ -13,23 +13,34 @@ class ObatController extends Controller
     public function index()
     {
          //
-        //  $accessToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5MDQ2NjI0OSwiZXhwIjoxNjkwNDY3Njg5fQ.rhhls3MfzUfroBdUT-3lEtZfVYMHNf5RdTDgRTBrEHtIIgf6KxdRaETq4daPqPj8xktlz1jHsNOOR-r3XFhrgg";
+         $accessToken = session('token');
+        
+         $category = Http::withHeaders([
+             'Authorization' => 'Bearer ' . $accessToken,
+         ])->get('http://Rizal:3005/kategori/all');
 
-        //  $response = Http::withHeaders([
-        //      'Authorization' => 'Bearer ' . $accessToken,
-        //  ])->get('http://Rizal:3002/obat/list');
+         $supplier = Http::withHeaders([
+             'Authorization' => 'Bearer ' . $accessToken,
+         ])->get('http://Rizal:3004/supplier/all');
  
-        //  if ($response->ok()) {
-        //      $data = $response->json();
+         $medicine = Http::withHeaders([
+             'Authorization' => 'Bearer ' . $accessToken,
+         ])->get('http://Rizal:3002/obat/list');
  
-        //      dd($data);
  
-        //      return view('medicine',compact('data'));
+         if ($medicine->ok()) {
+             $data_category = $category->json();
+             $data_supplier = $supplier->json();
+             $data_medicine = $medicine->json();
+ 
+             return view('medicine',compact('data_medicine', 'data_supplier', 'data_category'));
          
-        //  } else {
- 
-        //  }
-        return view('medicine');
+         } else {
+             return redirect()->route('dashboard')
+                 ->with('error', 'Token tidak sesuai');
+         }
+
+        // return view('medicine');
     }
 
     /**
@@ -45,7 +56,32 @@ class ObatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id_kategori = $request->input('id_kategori');
+        $id_supplier = $request->input('id_supplier');
+        $nama_obat = $request->input('nama_obat');
+        $stok = $request->input('stok');
+        $harga = $request->input('harga');
+
+        $accessToken = session('token');
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $accessToken,
+        ])->post('http://Rizal:3002/obat/add', [
+            'id_kategori' => $id_kategori,
+            'id_supplier' => $id_supplier,
+            'nama_obat' => $nama_obat,
+            'stok' => $stok,
+            'harga' => $harga,
+        ]);
+
+        if($response->successful()) {
+            return redirect()->route('medicine.index')
+            ->with('success', 'Berhasil tambah data');
+        } else {
+            return redirect()->route('medicine.index')
+            ->with('error', 'Gagal tambah data');
+        }
+
     }
 
     /**
@@ -67,16 +103,52 @@ class ObatController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $id_kategori = $request->input('id_kategori');
+        $id_supplier = $request->input('id_supplier');
+        $nama_obat = $request->input('nama_obat');
+        $stok = $request->input('stok');
+        $harga = $request->input('harga');
+
+        $accessToken = session('token');
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $accessToken,
+        ])->put('http://Rizal:3002/obat/update/' . $id, [
+            'id_kategori' => $id_kategori,
+            'id_supplier' => $id_supplier,
+            'nama_obat' => $nama_obat,
+            'stok' => $stok,
+            'harga' => $harga,
+        ]);
+
+        if($response->successful()) {
+            return redirect()->route('medicine.index')
+            ->with('success', 'Berhasil update data!');
+        } else {
+            return redirect()->route('medicine.index')
+            ->with('error', 'Gagal update data');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $accessToken = session('token');
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $accessToken,
+        ])->delete('http://Rizal:3002/obat/delete/' . $id);
+
+        if($response->successful()) {
+            return redirect()->route('medicine.index')
+            ->with('success', 'Berhasil hapus data!');
+        } else {
+            return redirect()->route('medicine.index')
+            ->with('error', 'Gagal hapus data');
+        }
     }
 }

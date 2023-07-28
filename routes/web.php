@@ -31,7 +31,7 @@ Route::resource('supplier', SupplierController::class);
 Route::resource('user', UserController::class);
 
 Route::get('/login_admin', function (Request $request) {
-    $response = Http::post('http://desktop-sjoemcq:3003/user/login', [
+    $response = Http::post('http://Rizal:8005/user/login', [
         'username' => 'admin',
         'password' => 'admin123',
     ]);
@@ -50,7 +50,7 @@ Route::get('/login_admin', function (Request $request) {
 })->name('login_admin');
 
 Route::get('/login_cashier', function (Request $request) {
-    $response = Http::post('http://desktop-sjoemcq:3003/user/login', [
+    $response = Http::post('http://Rizal:8005/user/login', [
         'username' => 'cashier',
         'password' => 'cashier123',
     ]);
@@ -70,7 +70,7 @@ Route::get('/login_cashier', function (Request $request) {
 })->name('login_cashier');
 
 Route::get('/register', function () {
-    $response = Http::post('http://desktop-sjoemcq:3003/user/register', [
+    $response = Http::post('http://Rizal:8005/user/register', [
         'nik' => '1201190034',
         'username' => 'cashier',
         'password' => 'cashier123',
