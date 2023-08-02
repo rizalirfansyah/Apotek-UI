@@ -95,7 +95,7 @@ class CategoryController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->post('http://desktop-sjoemcq:3005/kategori/update/1', [
+        ])->put('http://desktop-sjoemcq:3005/kategori/update/'. $id_kat, [
             'nama_kategori' => $nama_kategori,
             'deskripsi' => $deskripsi,
         ]);
@@ -112,14 +112,14 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( $id)
+    public function destroy( $id_kat)
     {
         //
         $accessToken = session('token');
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->delete('http://desktop-sjoemcq:3005/kategori/delete/' . $id);
+        ])->delete('http://desktop-sjoemcq:3005/kategori/delete/' . $id_kat);
 
         if($response->successful()) {
             return redirect()->route('category.index')
