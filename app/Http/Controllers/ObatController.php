@@ -36,8 +36,9 @@ class ObatController extends Controller
              return view('medicine',compact('data_medicine', 'data_supplier', 'data_category'));
          
          } else {
-             return view('medicine', compact('data_medicine', 'data_supplier', 'data_category'));
-         }
+            return redirect()->route('login-form')
+                ->with('error', 'Token tidak sesuai');
+        }
 
         // return view('medicine');
     }
