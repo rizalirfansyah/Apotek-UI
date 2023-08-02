@@ -45,6 +45,25 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+        $nama_kategori = $request->input('nama_kategori');
+        $deskripsi = $request->input('deskripsi');
+
+        $accessToken = session('token');
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $accessToken,
+        ])->post('http://desktop-sjoemcq:3005/kategori/add', [
+            'nama_kategori' => $nama_kategori,
+            'deskripsi' => $deskripsi,
+        ]);
+
+        if($response->successful()) {
+            return redirect()->route('category.index')
+            ->with('success', 'Berhasil tambah data');
+        } else {
+            return redirect()->route('category.index')
+            ->with('error', 'Gagal tambah data');
+        }
     }
 
     /**
@@ -66,16 +85,48 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id_kat)
     {
         //
+        $nama_kategori = $request->input('nama_kategori');
+        $deskripsi = $request->input('deskripsi');
+
+        $accessToken = session('token');
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $accessToken,
+        ])->post('http://desktop-sjoemcq:3005/kategori/update/1', [
+            'nama_kategori' => $nama_kategori,
+            'deskripsi' => $deskripsi,
+        ]);
+
+        if($response->successful()) {
+            return redirect()->route('category.index')
+            ->with('success', 'Berhasil update data');
+        } else {
+            return redirect()->route('category.index')
+            ->with('error', 'Gagal update data');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy( $id)
     {
         //
+        $accessToken = session('token');
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $accessToken,
+        ])->delete('http://desktop-sjoemcq:3005/kategori/delete/' . $id);
+
+        if($response->successful()) {
+            return redirect()->route('category.index')
+            ->with('success', 'Berhasil hapus data!');
+        } else {
+            return redirect()->route('category.index')
+            ->with('error', 'Gagal hapus data');
+        }
     }
 }

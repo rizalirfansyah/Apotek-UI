@@ -58,12 +58,12 @@
          </div>
          </div>
      </form>
- </div>
+    </div>
 
  <!-- Edit Modal -->
  @foreach($data_category as $category)
  <div class="modal fade" id="editModal{{ $category['id_kat'] }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-     <form action="{{ route('medicine.update', $category['id_kat']) }}" method="POST">
+     <form action="{{ route('category.update', $category['id_kat']) }}" method="POST">
          @csrf
 
          @method('PUT')
@@ -82,6 +82,10 @@
                     <div class="form-group">
                          <label for="nama_kategori" class="col-form-label">Deskripsi:</label>
                          <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="{{ old('deskripsi', $category['deskripsi']) }}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
              </div>
          </div>
