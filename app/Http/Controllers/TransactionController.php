@@ -23,11 +23,11 @@ class TransactionController extends Controller
         
         $transaction = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://Rizal:3001/transactions/all');
+        ])->get('http://desktop-sjoemcq:3001/transactions/all');
 
         $medicine = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://Rizal:3002/obat/list');
+        ])->get('http://desktop-sjoemcq:3002/obat/list');
 
         $randomCode = $this->generateRandomCode();
 
@@ -38,7 +38,7 @@ class TransactionController extends Controller
             return view('transaction',compact('data_transaction','data_medicine','randomCode'));
         
         } else {
-            return redirect()->route('dashboard')
+            return redirect()->route('login-form')
                 ->with('error', 'Token tidak sesuai');
         }
 
@@ -67,7 +67,7 @@ class TransactionController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->post('http://Rizal:3001/transactions/add', [
+        ])->post('http://desktop-sjoemcq:3001/transactions/add', [
             'transaction_code' => $transaction_code,
             'medicine_id' => $medicine_id,
             'quantity' => $quantity,

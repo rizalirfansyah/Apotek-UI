@@ -32,72 +32,9 @@ Route::resource('user', UserController::class);
 
 Route::post('user/search', [UserController::class, 'search'])->name('user.search');
 Route::post('/register', [UserController::class, 'store'])->name('register');
-Route::get('register-form', [UserController::class, 'registerform']);
-Route::get('login-form', [UserController::class, 'loginform']);
-
-Route::get('/login_admin', function (Request $request) {
-    $response = Http::post('http://Rizal:8005/user/login', [
-        'username' => 'admin',
-        'password' => 'admin123',
-    ]);
-
-    if ($response->successful()) {
-        $data = $response->json();
-
-        $request->session()->put('token', $data['token']);
-
-        return redirect()->route('dashboard')
-            ->with('success', 'Login berhasil');
-    } else {
-        return redirect()->route('dashboard')
-            ->with('error', 'Akun tidak terdaftar');
-    }
-})->name('login_admin');
-
-Route::get('/login_cashier', function (Request $request) {
-    $response = Http::post('http://Rizal:8005/user/login', [
-        'username' => 'cashier',
-        'password' => 'cashier123',
-    ]);
-
-    if ($response->successful()) {
-        
-        $data = $response->json();
-
-        $request->session()->put('token', $data['token']);
-
-        return redirect()->route('dashboard')
-            ->with('success', 'Login berhasil');
-    } else {
-        return redirect()->route('dashboard')
-            ->with('error', 'Akun tidak terdaftar');
-    }
-})->name('login_cashier');
-
-Route::get('/register', function () {
-    $response = Http::post('http://Rizal:8005/user/register', [
-        'nik' => '1201190034',
-        'username' => 'cashier',
-        'password' => 'cashier123',
-    ]);
-
-    if ($response->successful()) {
-        return redirect()->route('dashboard')
-            ->with('success', 'Akun berhasil terdaftar');
-    } else {
-        return redirect()->route('dashboard')
-            ->with('error', 'Akun tidak terdaftar');
-    }
-})->name('register');
-
-Route::get('/logout', function (Request $request) {
-
-    $data['token'] = "null";
-
-    $request->session()->put('token', $data['token']);
-
-    return redirect()->route('dashboard')
-            ->with('success', 'Logout berhasil');
-})->name('logout');
+Route::post('/login', [UserController::class, 'login'])->name('login');
+Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+Route::get('register-form', [UserController::class, 'registerform'])->name('register-form');
+Route::get('login-form', [UserController::class, 'loginform'])->name('login-form');
 
 

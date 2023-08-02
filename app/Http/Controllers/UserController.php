@@ -7,6 +7,14 @@ use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
+    public function registerform()
+    {
+        return view('register');
+    }
+    public function loginform()
+    {
+        return view('login');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -16,7 +24,7 @@ class UserController extends Controller
         
         $user = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://rednax:3001/user/list');
+        ])->get('http://desktop-sjoemcq:3003/user/list');
 
         if ($user->ok()) {
             $data_user = $user->json();
@@ -24,8 +32,30 @@ class UserController extends Controller
             return view('user',compact('data_user'));
         
         } else {
-            return redirect()->route('dashboard')
+            return redirect()->route('login-form')
                 ->with('error', 'Token tidak sesuai');
+        }
+    }
+
+    public function login(Request $request){
+        $username = $request->input('username');
+        $password = $request->input('password');
+
+        $response = Http::post('http://desktop-sjoemcq:3003/user/login', [
+            'username' => $username,
+            'password' => $password,
+        ]);
+
+        if ($response->successful()) {
+            $data = $response->json();
+
+            $request->session()->put('token', $data['token']);
+
+            return redirect()->route('dashboard')
+                ->with('success', 'Login berhasil');
+        } else {
+            return redirect()->route('login-form')
+                ->with('error', 'Akun tidak terdaftar');
         }
     }
 
@@ -46,17 +76,17 @@ class UserController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $response = Http::post('http://rednax:3001/user/register', [
+        $response = Http::post('http://desktop-sjoemcq:3003/user/register', [
             'nik' => $nik,
             'username' => $username,
             'password' => $password,
         ]);
     
         if ($response->successful()) {
-            return view('login')
-                ->with('success', 'Berhasil Registrasi');
+            return redirect()->route('login-form')
+                ->with('success', 'Berhasil Registrasi');  
         } else {
-            return view('register')
+            return redirect()->route('register-form')
                 ->with('error', 'Gagal Registrasi');
         }
     }
@@ -76,14 +106,7 @@ class UserController extends Controller
     {
         //
     }
-    public function registerform()
-    {
-        return view('register');
-    }
-    public function loginform()
-    {
-        return view('login');
-    }
+    
     /**
      * Update the specified resource in storage.
      */
@@ -98,7 +121,7 @@ class UserController extends Controller
     
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->put('http://rednax:3001/user/update', [
+        ])->put('http://desktop-sjoemcq:3003/user/update', [
             'nik' => $nik,
             'username' => $username,
             'password' => $password,
@@ -151,5 +174,15 @@ class UserController extends Controller
             return redirect()->route('user.index')
                 ->with('error', 'Gagal mencari user');
         }
+    }
+
+    public function logout(Request $request)
+    {
+        $data['token'] = "null";
+
+        $request->session()->put('token', $data['token']);
+
+        return redirect()->route('login-form')
+                ->with('success', 'Logout berhasil');
     }
 }
