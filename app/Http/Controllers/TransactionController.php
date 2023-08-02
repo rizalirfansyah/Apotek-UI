@@ -23,11 +23,11 @@ class TransactionController extends Controller
         
         $transaction = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://desktop-sjoemcq:3001/transactions/all');
+        ])->get('http://Rizal:3001/transactions/all');
 
         $medicine = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://desktop-sjoemcq:3002/obat/list');
+        ])->get('http://Rizal:3002/obat/list');
 
         $randomCode = $this->generateRandomCode();
 
@@ -67,7 +67,7 @@ class TransactionController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->post('http://desktop-sjoemcq:3001/transactions/add', [
+        ])->post('http://Rizal:3001/transactions/add', [
             'transaction_code' => $transaction_code,
             'medicine_id' => $medicine_id,
             'quantity' => $quantity,
@@ -112,7 +112,7 @@ class TransactionController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->put('http://desktop-sjoemcq:3001/transactions/edit/'. $id, [
+        ])->put('http://Rizal:3001/transactions/edit/'. $id, [
             'transaction_code' => $transaction_code,
             'medicine_id' => $medicine_id,
             'quantity' => $quantity,
@@ -137,7 +137,7 @@ class TransactionController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->delete('http://desktop-sjoemcq:3001/transactions/delete/' . $id);
+        ])->delete('http://Rizal:3001/transactions/delete/' . $id);
 
 
         if ($response->successful()) {

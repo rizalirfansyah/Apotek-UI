@@ -21,8 +21,8 @@
             <td>{{ $category['nama_kategori'] }}</td>
             <td>{{ $category['deskripsi'] }}</td>
             <td>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $category['id_kat'] }}"><i class="bi bi-trash3"></i>Hapus</button>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $category['id_kat'] }}"><i class="bi bi-pencil-square"></i>Ubah</button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $category['id'] }}"><i class="bi bi-trash3"></i>Hapus</button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $category['id'] }}"><i class="bi bi-pencil-square"></i>Ubah</button>
             </td>
           </tr>    
         @endforeach
@@ -62,8 +62,8 @@
 
     <!-- Edit Modal -->
     @foreach($data_category as $category)
-    <div class="modal fade" id="editModal{{ $category['id_kat'] }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-        <form action="{{ route('category.update', $category['id_kat']) }}" method="POST">
+    <div class="modal fade" id="editModal{{ $category['id'] }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <form action="{{ route('category.update', $category['id']) }}" method="POST">
             @csrf
 
             @method('PUT')
@@ -95,7 +95,7 @@
 
     <!-- Delete Modal -->
     
-        <div class="modal fade" id="deleteModal{{ $category['id_kat'] }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal fade" id="deleteModal{{ $category['id'] }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -107,8 +107,9 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                <form action="{{ route('category.destroy', $category['id_kat']) }}" method="POST">
+                <form action="{{ route('category.destroy', $category['id']) }}" method="POST">
                     @csrf
+                    
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Ya, saya yakin</button>
                 </form>

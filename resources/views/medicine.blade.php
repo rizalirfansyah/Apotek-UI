@@ -67,7 +67,7 @@
                             <select class="form-select" aria-label="Default select example" id="id_kategori" name="id_kategori">
                                 <option selected>Pilih kategori obat</option>
                                 @foreach ($data_category as $category)
-                                    <option value="{{ $category['id_kat'] }}">{{ $category['nama_kategori'] }}</option>
+                                    <option value="{{ $category['id'] }}">{{ $category['nama_kategori'] }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -111,7 +111,7 @@
                             <label for="id_kategori" class="col-form-label">Kategori:</label>
                             <select class="form-select" aria-label="Default select example" id="id_kategori" name="id_kategori">
                                 @foreach ($data_category as $category)
-                                    <option value="{{ $category['id_kat'] }}" @if ($category['id_kat'] === $obat['id']) selected @endif>
+                                    <option value="{{ $category['id'] }}" @if ($category['id'] === $obat['id']) selected @endif>
                                         {{ $category['nama_kategori'] }}
                                     </option>
                                 @endforeach
