@@ -18,7 +18,7 @@
                     <i class="fs-4 bi-capsule"></i> <span class="ms-1 d-none d-sm-inline">Obat</span> </a>
             </li>
             <li>
-                <a href="#" class="nav-link px-0 align-middle">
+                <a href="{{ route('category.index') }}" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-card-list"></i> <span class="ms-1 d-none d-sm-inline">Kategori</span> </a>
             </li>
             <li>

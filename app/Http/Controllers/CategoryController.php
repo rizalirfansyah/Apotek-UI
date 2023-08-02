@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class CategoryController extends Controller
 {
@@ -12,6 +13,22 @@ class CategoryController extends Controller
     public function index()
     {
         //
+        $accessToken = session('token');
+        
+        $category = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $accessToken,
+        ])->get('http://desktop-sjoemcq:3005/kategori/all');
+
+
+        if ($category->ok()) {
+            $data_category = $category->json();
+
+            return view('category',compact('data_category'));
+        
+        } else {
+            return redirect()->route('login-form')
+                ->with('error', 'Token tidak sesuai');
+        }
     }
 
     /**

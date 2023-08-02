@@ -1,4 +1,4 @@
-@extends('layouts.layout_main')
+@extends('layout.app')
 @section('title', 'kategori')
 @section('content')
 
@@ -18,11 +18,11 @@
           @foreach ($data_category as $category)
           <tr>
             <th scope="row">{{ $loop->iteration }}</th>
-            <td>{{ $obat['nama_kategori'] }}</td>
-            <td>{{ $obat['deskripsi'] }}</td>
+            <td>{{ $category['nama_kategori'] }}</td>
+            <td>{{ $category['deskripsi'] }}</td>
             <td>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $obat['id'] }}"><i class="bi bi-trash3"></i>Hapus</button>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $obat['id'] }}"><i class="bi bi-pencil-square"></i>Ubah</button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $category['id_kat'] }}"><i class="bi bi-trash3"></i>Hapus</button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $category['id_kat'] }}"><i class="bi bi-pencil-square"></i>Ubah</button>
             </td>
           </tr>    
         @endforeach
@@ -41,12 +41,12 @@
              </div>
              <div class="modal-body">
                      <div class="form-group">
-                         <label for="nama_obat" class="col-form-label">Nama Kategori:</label>
+                         <label for="nama_kategori" class="col-form-label">Nama Kategori:</label>
                          <input type="text" class="form-control" id="nama_kategori" name="nama_kategori">
                      </div>
 
                      <div class="form-group">
-                         <label for="nama_obat" class="col-form-label">Deskripsi:</label>
+                         <label for="deskripsi" class="col-form-label">Deskripsi:</label>
                          <input type="text" class="form-control" id="deskripsi" name="deskripsi">
                      </div>
 
@@ -62,15 +62,15 @@
 
  <!-- Edit Modal -->
  @foreach($data_category as $category)
- <div class="modal fade" id="editModal{{ $category['id'] }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-     <form action="{{ route('medicine.update', $category['id']) }}" method="POST">
+ <div class="modal fade" id="editModal{{ $category['id_kat'] }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+     <form action="{{ route('medicine.update', $category['id_kat']) }}" method="POST">
          @csrf
 
          @method('PUT')
          <div class="modal-dialog">
              <div class="modal-content">
                  <div class="modal-header">
-                 <h1 class="modal-title fs-5" id="exampleModalLabel">Ubah Data Obat</h1>
+                 <h1 class="modal-title fs-5" id="exampleModalLabel">Ubah Data category</h1>
                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                  </div>
                  <div class="modal-body">
@@ -91,7 +91,7 @@
 
  <!-- Delete Modal -->
  @foreach($data_category as $category)
- <div class="modal fade" id="deleteModal{{ $category['id'] }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+ <div class="modal fade" id="deleteModal{{ $category['id_kat'] }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
      <div class="modal-dialog">
      <div class="modal-content">
          <div class="modal-header">
@@ -103,7 +103,7 @@
          </div>
          <div class="modal-footer">
          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-         <form action="{{ route('category.destroy', $category['id']) }}" method="POST">
+         <form action="{{ route('category.destroy', $category['id_kat']) }}" method="POST">
              @csrf
 
              @method('DELETE')
