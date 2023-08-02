@@ -30,6 +30,11 @@ Route::resource('category', CategoryController::class);
 Route::resource('supplier', SupplierController::class);
 Route::resource('user', UserController::class);
 
+Route::post('user/search', [UserController::class, 'search'])->name('user.search');
+Route::post('/register', [UserController::class, 'store'])->name('register');
+Route::get('register-form', [UserController::class, 'registerform']);
+Route::get('login-form', [UserController::class, 'loginform']);
+
 Route::get('/login_admin', function (Request $request) {
     $response = Http::post('http://Rizal:8005/user/login', [
         'username' => 'admin',
