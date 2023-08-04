@@ -2,9 +2,9 @@
 
 @section('content')
 
-    <h3>Obat</h3>
+    <h3>Kategori</h3>
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Tambah Obat</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Tambah Kategori</button>
     
     <table class="table table-hover">
         <thead>
@@ -71,7 +71,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Ubah Data Obat</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Ubah Data Kategori</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -100,7 +100,7 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Obat</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Kategori</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
