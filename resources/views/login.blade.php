@@ -130,6 +130,10 @@
         </div>
     
         <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
+        <!-- Register buttons -->
+        <div class="text-center">
+          <p>Not a member? <a href="register-form">Register</a></p>
+        </div>
         <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
       </form>
     </main>
