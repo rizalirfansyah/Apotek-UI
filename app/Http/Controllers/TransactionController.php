@@ -100,18 +100,14 @@ class TransactionController extends Controller
         $medicines_id = $request->input('medicine_id');
         $quantities = $request->input('quantity');
 
-        // dd($medicines_id, $quantities);
-
         $accessToken = session('token');
+        $hasPositiveQuantity = false;
 
         foreach ($medicines_id as $index => $medicine_id) {
             $quantity = $quantities[$index];
             
             if ($quantity > 0) {
-                // Jika jumlah > 0, simpan item ke dalam transaksi
-                // $medicine = Medicine::find($medicineId);
-                // $totalPrice = $medicine->harga * $quantity;
-
+                $hasPositiveQuantity = true;
                 $response = Http::withHeaders([
                     'Authorization' => 'Bearer ' . $accessToken,
                 ])->post('http://DESKTOP-SJOEMCQ:3001/transactions/add', [
@@ -121,13 +117,18 @@ class TransactionController extends Controller
                 ]);
             }
         }
-
-        if ($response->successful()) {
-            return redirect()->route('transaction.index')
+        if ($hasPositiveQuantity) {
+            if ($response->successful()) {
+                return redirect()->route('transaction.index')
                     ->with('success', 'Berhasil Ditambahkan');
-        } else {
-            return redirect()->route('transaction.index')
+            } else {
+                return redirect()->route('transaction.index')
                     ->with('error', 'Stok tabung tidak mencukupi');
+            }
+        } else {
+            // Tidak ada quantity yang lebih besar dari 0
+            return redirect()->route('transaction.index')
+                ->with('error', 'Jumlah obat harus lebih dari 0');
         }
     }
 
