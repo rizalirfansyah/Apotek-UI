@@ -41,7 +41,7 @@ class UserController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $response = Http::post('http://DESKTOP-SJOEMCQ:8005/user/login', [
+        $response = Http::post('http://desktop-sjoemcq:3005/user/login', [
             'username' => $username,
             'password' => $password,
         ]);
@@ -76,7 +76,7 @@ class UserController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $response = Http::post('http://DESKTOP-SJOEMCQ:8005/user/register', [
+        $response = Http::post('http://desktop-sjoemcq:3005/user/register', [
             'nik' => $nik,
             'username' => $username,
             'password' => $password,
