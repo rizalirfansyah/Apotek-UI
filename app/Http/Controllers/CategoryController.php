@@ -17,7 +17,7 @@ class CategoryController extends Controller
         
         $category = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://DESKTOP-SJOEMCQ:3003/kategori/all');
+        ])->get('https://crud-kategori-production.up.railway.app/kategori/all');
 
 
         if ($category->ok()) {
@@ -52,7 +52,7 @@ class CategoryController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->post('http://DESKTOP-SJOEMCQ:3003/kategori/add', [
+        ])->post('https://crud-kategori-production.up.railway.app/kategori/add', [
             'nama_kategori' => $nama_kategori,
             'deskripsi' => $deskripsi,
         ]);
@@ -95,7 +95,7 @@ class CategoryController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->put('http://DESKTOP-SJOEMCQ:3003/kategori/update/'. $id_kat, [
+        ])->put('https://crud-kategori-production.up.railway.app/kategori/update/'. $id_kat, [
             'nama_kategori' => $nama_kategori,
             'deskripsi' => $deskripsi,
         ]);
@@ -119,7 +119,7 @@ class CategoryController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->delete('http://DESKTOP-SJOEMCQ:3003/kategori/delete/' . $id_kat);
+        ])->delete('https://crud-kategori-production.up.railway.app/kategori/delete/' . $id_kat);
 
         if($response->successful()) {
             return redirect()->route('category.index')

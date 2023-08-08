@@ -23,11 +23,11 @@ class TransactionController extends Controller
         
         $transactionResponse = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://DESKTOP-SJOEMCQ:3001/transactions/all');
+        ])->get('https://transaction-service-springboot-production.up.railway.app/transactions/all');
 
         $medicineResponse = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://DESKTOP-SJOEMCQ:3002/obat/list');
+        ])->get('https://transaction-service-springboot-production.up.railway.app/obat/list');
 
 
         if ($transactionResponse->ok()) {
@@ -65,15 +65,15 @@ class TransactionController extends Controller
         
         $category = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://DESKTOP-SJOEMCQ:3003/kategori/all');
+        ])->get('http://Rizal:3005/kategori/all');
 
         $supplier = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://DESKTOP-SJOEMCQ:3004/supplier/all');
+        ])->get('http://Rizal:3004/supplier/all');
 
         $medicine = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://DESKTOP-SJOEMCQ:3002/obat/list');
+        ])->get('http://Rizal:3002/obat/list');
 
         $randomCode = $this->generateRandomCode();
 
@@ -110,7 +110,7 @@ class TransactionController extends Controller
                 $hasPositiveQuantity = true;
                 $response = Http::withHeaders([
                     'Authorization' => 'Bearer ' . $accessToken,
-                ])->post('http://DESKTOP-SJOEMCQ:3001/transactions/add', [
+                ])->post('https://transaction-service-springboot-production.up.railway.app/transactions/add', [
                     'transaction_code' => $transaction_code,
                     'medicine_id' => $medicine_id,
                     'quantity' => $quantity,
@@ -162,7 +162,7 @@ class TransactionController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->put('http://DESKTOP-SJOEMCQ:3001/transactions/edit/'. $id, [
+        ])->put('https://transaction-service-springboot-production.up.railway.app/transactions/edit/'. $id, [
             'transaction_code' => $transaction_code,
             'medicine_id' => $medicine_id,
             'quantity' => $quantity,
@@ -187,7 +187,7 @@ class TransactionController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->delete('http://DESKTOP-SJOEMCQ:3001/transactions/delete/' . $id);
+        ])->delete('https://transaction-service-springboot-production.up.railway.app/transactions/delete/' . $id);
 
 
         if ($response->successful()) {
