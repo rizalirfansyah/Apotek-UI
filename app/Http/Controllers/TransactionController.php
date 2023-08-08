@@ -21,28 +21,38 @@ class TransactionController extends Controller
         //
         $accessToken = session('token');
         
-        $transaction = Http::withHeaders([
+        $transactionResponse = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
         ])->get('http://DESKTOP-SJOEMCQ:3001/transactions/all');
 
-        $medicine = Http::withHeaders([
+        $medicineResponse = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
         ])->get('http://DESKTOP-SJOEMCQ:3002/obat/list');
 
-        $randomCode = $this->generateRandomCode();
 
-        if ($transaction->ok()) {
-            $data_transaction = $transaction->json();
-            $data_medicine = $medicine->json();
+        if ($transactionResponse->ok()) {
+            $data_transaction = $transactionResponse->json();
+            $data_medicine = $medicineResponse->json();
 
-            return view('transaction',compact('data_transaction','data_medicine','randomCode'));
+            $transactions = $transactionResponse->json();
+
+            // Kelompokkan transaksi berdasarkan kode transaksi
+            $groupedTransactions = [];
+            foreach ($transactions as $transaction) {
+                $transactionCode = $transaction['transaction_code'];
+                if (!isset($groupedTransactions[$transactionCode])) {
+                    $groupedTransactions[$transactionCode] = [];
+                }
+                $groupedTransactions[$transactionCode][] = $transaction;
+            }
+
+            return view('transaction',compact('data_transaction','data_medicine','groupedTransactions'));
         
         } else {
             return redirect()->route('login-form')
                 ->with('error', 'Token tidak sesuai');
         }
 
-        // return view('transaction');
     }
 
     /**
@@ -51,6 +61,33 @@ class TransactionController extends Controller
     public function create()
     {
         //
+        $accessToken = session('token');
+        
+        $category = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $accessToken,
+        ])->get('http://DESKTOP-SJOEMCQ:3003/kategori/all');
+
+        $supplier = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $accessToken,
+        ])->get('http://DESKTOP-SJOEMCQ:3004/supplier/all');
+
+        $medicine = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $accessToken,
+        ])->get('http://DESKTOP-SJOEMCQ:3002/obat/list');
+
+        $randomCode = $this->generateRandomCode();
+
+        if ($medicine->ok()) {
+            $data_category = $category->json();
+            $data_supplier = $supplier->json();
+            $data_medicine = $medicine->json();
+
+            return view('addtransaction',compact('data_medicine', 'data_supplier', 'data_category', 'randomCode'));
+        
+        } else {
+           return redirect()->route('login-form')
+               ->with('error', 'Token tidak sesuai');
+        }
     }
 
     /**
@@ -60,18 +97,30 @@ class TransactionController extends Controller
     {
         //
         $transaction_code = $request->input('transaction_code');
-        $medicine_id = $request->input('medicine_id');
-        $quantity = $request->input('quantity');
+        $medicines_id = $request->input('medicine_id');
+        $quantities = $request->input('quantity');
+
+        // dd($medicines_id, $quantities);
 
         $accessToken = session('token');
 
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $accessToken,
-        ])->post('http://DESKTOP-SJOEMCQ:3001/transactions/add', [
-            'transaction_code' => $transaction_code,
-            'medicine_id' => $medicine_id,
-            'quantity' => $quantity,
-        ]);
+        foreach ($medicines_id as $index => $medicine_id) {
+            $quantity = $quantities[$index];
+            
+            if ($quantity > 0) {
+                // Jika jumlah > 0, simpan item ke dalam transaksi
+                // $medicine = Medicine::find($medicineId);
+                // $totalPrice = $medicine->harga * $quantity;
+
+                $response = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . $accessToken,
+                ])->post('http://DESKTOP-SJOEMCQ:3001/transactions/add', [
+                    'transaction_code' => $transaction_code,
+                    'medicine_id' => $medicine_id,
+                    'quantity' => $quantity,
+                ]);
+            }
+        }
 
         if ($response->successful()) {
             return redirect()->route('transaction.index')

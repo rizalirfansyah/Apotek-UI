@@ -10,8 +10,12 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('transaction.create') }}" class="nav-link px-0 align-middle">
+                    <i class="fs-4 bi-cart3"></i> <span class="ms-1 d-none d-sm-inline">Tambah Transaksi</span></a>
+            </li>
+            <li>
                 <a href="{{ route('transaction.index') }}" class="nav-link px-0 align-middle">
-                    <i class="fs-4 bi-cart3"></i> <span class="ms-1 d-none d-sm-inline">Transaksi</span></a>
+                    <i class="fs-4 bi-cart3"></i> <span class="ms-1 d-none d-sm-inline">Riwayat Transaksi</span></a>
             </li>
             <li>
                 <a href="{{ route('medicine.index') }}" class="nav-link px-0 align-middle">
