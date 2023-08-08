@@ -65,15 +65,15 @@ class TransactionController extends Controller
         
         $category = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://Rizal:3005/kategori/all');
+        ])->get('https://crud-kategori-production.up.railway.app/kategori/all');
 
         $supplier = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://Rizal:3004/supplier/all');
+        ])->get('https://supplier-service-production.up.railway.app/supplier/all');
 
         $medicine = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://Rizal:3002/obat/list');
+        ])->get('https://crud-obat-production.up.railway.app/list');
 
         $randomCode = $this->generateRandomCode();
 

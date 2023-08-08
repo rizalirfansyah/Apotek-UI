@@ -24,7 +24,7 @@ class UserController extends Controller
         
         $user = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://DESKTOP-SJOEMCQ:8005/user/list');
+        ])->get('https://user-service-springboot-production.up.railway.app/user/list');
 
         if ($user->ok()) {
             $data_user = $user->json();
@@ -41,7 +41,7 @@ class UserController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $response = Http::post('http://desktop-sjoemcq:3005/user/login', [
+        $response = Http::post('https://user-service-springboot-production.up.railway.app/user/login', [
             'username' => $username,
             'password' => $password,
         ]);
@@ -76,7 +76,7 @@ class UserController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $response = Http::post('http://desktop-sjoemcq:3005/user/register', [
+        $response = Http::post('https://user-service-springboot-production.up.railway.app/user/register', [
             'nik' => $nik,
             'username' => $username,
             'password' => $password,
@@ -121,7 +121,7 @@ class UserController extends Controller
     
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->put('http://DESKTOP-SJOEMCQ:8005/user/update', [
+        ])->put('https://user-service-springboot-production.up.railway.app/user/update', [
             'nik' => $nik,
             'username' => $username,
             'password' => $password,
@@ -149,7 +149,7 @@ class UserController extends Controller
     
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->delete('http://rednax:3001/user/delete', ['nik' => $id]);
+        ])->delete('https://user-service-springboot-production.up.railway.app/user/delete', ['nik' => $id]);
     
         if ($response->successful()) {
             return redirect()->route('user.index')->with('success', 'User berhasil dihapus');
@@ -165,7 +165,7 @@ class UserController extends Controller
         
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->post('http://rednax:3001/user/search', ['nik' => $nik]);
+        ])->post('https://user-service-springboot-production.up.railway.app/user/search', ['nik' => $nik]);
 
         if ($response->successful()) {
             $user = $response->json();
