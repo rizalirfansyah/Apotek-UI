@@ -24,7 +24,7 @@ class UserController extends Controller
         
         $user = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://Rizal:8005/user/list');
+        ])->get('http://DESKTOP-SJOEMCQ:8005/user/list');
 
         if ($user->ok()) {
             $data_user = $user->json();
@@ -41,7 +41,7 @@ class UserController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $response = Http::post('http://Rizal:8005/user/login', [
+        $response = Http::post('http://DESKTOP-SJOEMCQ:8005/user/login', [
             'username' => $username,
             'password' => $password,
         ]);
@@ -76,7 +76,7 @@ class UserController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $response = Http::post('http://Rizal:8005/user/register', [
+        $response = Http::post('http://DESKTOP-SJOEMCQ:8005/user/register', [
             'nik' => $nik,
             'username' => $username,
             'password' => $password,
@@ -121,7 +121,7 @@ class UserController extends Controller
     
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->put('http://Rizal:8005/user/update', [
+        ])->put('http://DESKTOP-SJOEMCQ:8005/user/update', [
             'nik' => $nik,
             'username' => $username,
             'password' => $password,

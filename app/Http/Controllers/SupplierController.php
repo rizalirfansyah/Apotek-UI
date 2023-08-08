@@ -17,7 +17,7 @@ class SupplierController extends Controller
 
          $supplier = Http::withHeaders([
              'Authorization' => 'Bearer ' . $accessToken,
-         ])->get('http://Rizal:3004/supplier/all');
+         ])->get('http://DESKTOP-SJOEMCQ:3004/supplier/all');
  
          if ($supplier->ok()) {
              $data_supplier = $supplier->json();
@@ -53,7 +53,7 @@ class SupplierController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->post('http://Rizal:3004/supplier/add', [
+        ])->post('http://DESKTOP-SJOEMCQ:3004/supplier/add', [
             'nama_supplier' => $nama_supplier,
             'alamat' => $alamat,
             'no_telepon' => $no_telepon,
@@ -98,7 +98,7 @@ class SupplierController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->put('http://Rizal:3004/supplier/update/' . $id, [
+        ])->put('http://DESKTOP-SJOEMCQ:3004/supplier/update/' . $id, [
             'nama_supplier' => $nama_supplier,
             'alamat' => $alamat,
             'no_telepon' => $no_telepon,
@@ -122,7 +122,7 @@ class SupplierController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->delete('http://Rizal:3004/obat/delete/' . $id);
+        ])->delete('http://DESKTOP-SJOEMCQ:3004/supplier/delete/' . $id);
 
         if($response->successful()) {
             return redirect()->route('supplier.index')

@@ -17,15 +17,15 @@ class ObatController extends Controller
         
          $category = Http::withHeaders([
              'Authorization' => 'Bearer ' . $accessToken,
-         ])->get('http://Rizal:3005/kategori/all');
+         ])->get('http://DESKTOP-SJOEMCQ:3003/kategori/all');
 
          $supplier = Http::withHeaders([
              'Authorization' => 'Bearer ' . $accessToken,
-         ])->get('http://Rizal:3004/supplier/all');
+         ])->get('http://DESKTOP-SJOEMCQ:3004/supplier/all');
  
          $medicine = Http::withHeaders([
              'Authorization' => 'Bearer ' . $accessToken,
-         ])->get('http://Rizal:3002/obat/list');
+         ])->get('http://DESKTOP-SJOEMCQ:3002/obat/list');
  
  
          if ($medicine->ok()) {
@@ -66,7 +66,7 @@ class ObatController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->post('http://Rizal:3002/obat/add', [
+        ])->post('http://DESKTOP-SJOEMCQ:3002/obat/add', [
             'id_kategori' => $id_kategori,
             'id_supplier' => $id_supplier,
             'nama_obat' => $nama_obat,
@@ -115,7 +115,7 @@ class ObatController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->put('http://Rizal:3002/obat/update/' . $id, [
+        ])->put('http://DESKTOP-SJOEMCQ:3002/obat/update/' . $id, [
             'id_kategori' => $id_kategori,
             'id_supplier' => $id_supplier,
             'nama_obat' => $nama_obat,
@@ -141,7 +141,7 @@ class ObatController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->delete('http://Rizal:3002/obat/delete/' . $id);
+        ])->delete('http://DESKTOP-SJOEMCQ:3002/obat/delete/' . $id);
 
         if($response->successful()) {
             return redirect()->route('medicine.index')
